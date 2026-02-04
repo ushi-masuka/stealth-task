@@ -14,7 +14,7 @@ def counter():
     # Note: We removed the clear screen from here. 
     # The thread should only update data, not wipe the UI.
     
-    for i in range(50):
+    for i in range(100):
         # 1. Save cursor (User is typing at the bottom)
         sys.stdout.write(SAVE_CURSOR)
 
@@ -26,7 +26,7 @@ def counter():
         sys.stdout.write(RESTORE_CURSOR)
         sys.stdout.flush()   
         
-        time.sleep(0.2)
+        time.sleep(0.1)
 
 if __name__=="__main__":
     # STEP 1: Main thread sets up the "UI Canvas"
@@ -39,7 +39,7 @@ if __name__=="__main__":
     # The input prompt will be on Line 3
     
     # STEP 2: Start the background worker
-    t = threading.Thread(target=counter)
+    t = threading.Thread(target=counter,daemon=True)
     t.start()
     
     # STEP 3: User Interaction
